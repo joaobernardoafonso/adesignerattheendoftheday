@@ -1,0 +1,222 @@
+@font-face {
+  font-family: 'Inter V';
+  src: url('Inter-V.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background: #fff;
+  font-family: 'Inter V', Arial, sans-serif;
+  color: #000;
+  min-height: 100vh;
+}
+
+/* ── VIDEO BACKGROUND ── */
+#video-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+  pointer-events: none;
+}
+#video-overlay {
+  background: transparent;
+}
+
+/* ── BUBBLE LAYER ── */
+#bubble-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* ── UI LAYER ── */
+.ui-layer {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 24px;
+  pointer-events: none;
+}
+
+.ui-layer > * { pointer-events: auto; }
+
+/* ── HEADER ── */
+header {
+  text-align: center;
+  padding: 72px 0 40px;
+}
+
+h1 {
+  font-size: clamp(2.8rem, 8vw, 6rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.08em;
+  color: #000;
+}
+
+/* ── FORM ── */
+.form-wrap {
+  width: 100%;
+  max-width: 480px;
+  margin-bottom: 28px;
+  background: #fff;
+  border: 2px solid #000;
+  border-radius: 10px;
+  padding: 24px;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 10px;
+}
+
+textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  color: #000;
+  font-family: 'Inter V', Arial, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  padding: 8px 0 12px;
+  resize: none;
+  height: 90px;
+  outline: none;
+  transition: border-color 0.2s;
+  line-height: 1.5;
+}
+
+textarea::placeholder { color: #ccc; font-style: italic; }
+textarea:focus { border-color: #000; }
+
+.form-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.name-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  color: #666;
+  font-family: 'Inter V', Arial, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  padding: 6px 0;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.name-input::placeholder { color: #ccc; }
+.name-input:focus { border-color: #000; }
+
+.launch-btn {
+  background: #000;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-family: 'Inter V', Arial, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  white-space: nowrap;
+}
+
+.launch-btn:hover { background: #333; }
+.launch-btn:active { transform: scale(0.97); }
+
+/* ── BUBBLES ── */
+.bubble {
+  position: absolute;
+  pointer-events: auto;
+  animation: float-bubble linear forwards;
+  will-change: transform, opacity;
+}
+
+.bubble-inner {
+  background: #fff;
+  border: 1.5px solid #000;
+  border-radius: 10px;
+  padding: 16px 20px;
+  max-width: 280px;
+  transition: transform 0.25s;
+}
+
+.bubble:hover .bubble-inner {
+  transform: translateY(-3px);
+}
+
+.bubble-name {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #aaa;
+  margin-bottom: 6px;
+}
+
+.bubble-text {
+  font-size: 0.95rem;
+  font-weight: 400;
+  font-style: italic;
+  color: #000;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.bubble-ts {
+  font-size: 0.57rem;
+  color: #ccc;
+  margin-top: 8px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@keyframes float-bubble {
+  0%   { transform: translate(0, 0) rotate(var(--r0)); opacity: 0; }
+  6%   { opacity: 1; }
+  94%  { opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) rotate(var(--r1)); opacity: 0; }
+}
+
+/* ── FOOTER ── */
+footer {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 24px;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #ccc;
+}
