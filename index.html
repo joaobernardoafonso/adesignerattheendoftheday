@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dear Designer — How do you feel at the end of the day?</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Substitui "your-video.mp4" pelo teu ficheiro -->
+  <video id="video-bg" autoplay muted loop playsinline>
+    <source src="A DESIGNER  AT THE END OF THE DAY Comp 2_1.webm" type="video/mp4">
+  </video>
+
+  <div id="bubble-layer"></div>
+
+  <div class="ui-layer">
+    <header>
+      <h1>Dear designer,<br>how do you feel<br>at the end of the day?</h1>
+    </header>
+
+    <div class="form-wrap">
+      <textarea id="msg-input" placeholder="Type here..."></textarea>
+      <div class="form-footer">
+        <input class="name-input" id="name-input" type="text" placeholder="Your name (optional)" maxlength="30">
+        <button class="launch-btn" onclick="launch()">Release ↑</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>made with care — for every designer who stayed late</footer>
+
+  <!-- type="module" é obrigatório para o Firebase funcionar -->
+  <script type="module" src="script.js"></script>
+</body>
+</html>
