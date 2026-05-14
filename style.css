@@ -1,0 +1,839 @@
+@font-face {
+  font-family: "Inter V";
+  src: url("Inter-V.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+/* ── RESET ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-variation-settings: 'wdth' 10;
+}
+
+html, body {
+  width: 100%;
+  height: auto;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+/* ── BASE ── */
+body {
+  background: #ffffff;
+  font-family: "Inter V", Arial, sans-serif;
+  color: #111;
+  min-height: 100vh;
+  overflow-x: hidden;
+  z-index: -999;
+}
+
+.cursor-glow {
+  position: fixed;
+  width: 3500px;
+  height: 4000px;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    blue 0%,
+    blue 25%,
+    rgba(111, 111, 255, 0.127) 55%,
+    transparent 75%
+  );
+  will-change: left, top;
+  z-index: 0;
+}
+
+/* Em mobile: sem cursor, o glow fica estático centrado no topo como gradiente ambiente */
+@media (hover: none) and (pointer: coarse) {
+  .cursor-glow {
+    position: fixed;
+    left: 50% !important;
+    top: -5% !important;
+    transform: translate(-50%, 0) !important;
+    width: 140vw;
+    height: 140vw;
+    background: radial-gradient(
+      circle,
+      blue 0%,
+      blue 15%,
+      rgba(0, 0, 255, 0.45) 40%,
+      rgba(60, 60, 255, 0.15) 65%,
+      transparent 80%
+    );
+    will-change: auto;
+  }
+}
+
+/* ── GRADIENTE NAV (index/vent here) ── */
+.nav-gradient {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 60vh;
+  background: linear-gradient(to bottom, blue 0%, transparent 30%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 24px;
+  padding: 6px;
+  gap: 4px;
+  height: auto;
+  /* garante que não estoura em ecrãs pequenos */
+  max-width: calc(100vw - 16px);
+}
+
+nav a {
+  display: flex;
+  align-items: center;
+  padding: 10px 28px;
+  font-family: 'Inter V', Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: white;
+  background: transparent;
+  border-radius: 79px;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+
+nav a.active {
+  background: blue;
+  color: #fff;
+}
+
+nav a:hover {
+  background: rgba(0,0,0,0.08);
+  color: white;
+}
+
+/* ── BUBBLE LAYER ── */
+#bubble-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* ── UI LAYER ── */
+.ui-layer {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 44px 16px 0;
+  pointer-events: none;
+}
+
+.ui-layer > * { pointer-events: auto; }
+
+.description-block p,
+.rant-block p,
+.deserved-box p,
+.solution-text,
+.fear-not-box span,
+.yellow-banner h2 {
+  transform: scaleX(0.7);
+  transform-origin: left center;
+  display: inline-block;
+}
+
+/* ── HEADER ── */
+header {
+  position: relative;
+  width: 100%;
+  padding: 48px 0 0;
+}
+
+video.header-img {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: clamp(120px, 20vw, 220px);
+  height: auto;
+  margin: 10px;
+  z-index: 15;
+}
+
+/* ── SVG TITLE ── */
+.title-svg {
+  width: clamp(300px, 95vw, 1800px);
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.title-text {
+  font-family: 'Inter V', Arial, sans-serif;
+  font-size: 70px;
+  font-weight: 700;
+  fill: yellow;
+  stroke: #111;
+  stroke-width: 30px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  paint-order: stroke fill;
+}
+
+.title-text-shadow {
+  font-family: 'Inter V', Arial, sans-serif;
+  font-size: 70px;
+  font-weight: 700;
+  fill: yellow;
+  stroke: yellow;
+  stroke-width: 46px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  paint-order: stroke fill;
+}
+
+.title-text-banner {
+  font-family: 'Inter V', Arial, sans-serif;
+  font-size: 90px;
+  font-weight: 700;
+  fill: yellow;
+  stroke: black;
+  stroke-width: 30px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  paint-order: stroke fill;
+}
+
+/* ── FORM ── */
+.form-wrap {
+  width: 100%;
+  max-width: 620px;
+  margin-bottom: 32px;
+  background: #fff;
+  border: 2.5px solid #111;
+  border-radius: 999px;
+  padding: 12px 12px 12px 32px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.form-wrap:focus-within { box-shadow: none; }
+
+textarea {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #111;
+  font-family: "Inter V", Arial, sans-serif;
+  font-size: max(1rem, 16px); /* 16px previne zoom automático no iOS */
+  font-weight: 400;
+  padding: 0;
+  resize: none;
+  height: 24px;
+  outline: none;
+  line-height: 1.5;
+  /* iOS: desativa autocorrect intrusivo */
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+textarea::placeholder {
+  color: #bbb;
+  font-style: italic;
+}
+
+.form-footer {
+  display: flex;
+  align-items: center;
+  margin-top: 0;
+  flex-shrink: 0;
+}
+
+.launch-btn {
+  background: yellow;
+  border: 0px solid #111;
+  border-radius: 50px;
+  color: #111;
+  font-family: "Inter V", Arial, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 12px 26px;
+  cursor: pointer;
+  white-space: nowrap;
+  min-height: 46px;
+  /* área de toque mínima recomendada (44px já está coberta) */
+  min-width: 44px;
+  transition: background 0.15s, color 0.15s, transform 0.1s;
+  /* evita highlight azul em mobile */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.launch-btn:hover { background: #111; color: yellow; }
+.launch-btn:active { transform: scale(0.96); }
+
+/* ── BUBBLES ── */
+.bubble {
+  position: absolute;
+  pointer-events: auto;
+  animation: float-bubble 20s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.bubble-inner {
+  background: rgba(255, 255, 255, 0.894);
+  border: 1px solid #111;
+  border-radius: 999px;
+  padding: 10px 22px;
+  max-width: 280px;
+  transition: transform 0.25s;
+  position: relative;
+}
+
+.bubble:hover .bubble-inner { transform: translateY(-4px) scale(1.02); }
+
+.bubble-text {
+  font-family: "Inter V", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #111;
+  line-height: 1;
+  word-break: break-word;
+}
+
+.bubble-ts {
+  font-family: "Inter V", Arial, sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: #0000009d;
+  margin-top: 3px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@keyframes float-bubble {
+  0%   { transform: translate(0, 0) rotate(var(--r0)); }
+  100% { transform: translate(var(--dx), var(--dy)) rotate(var(--r1)); }
+}
+
+/* ── FOOTER ── */
+footer {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 28px 16px 32px;
+  font-family: "Inter V", Arial, sans-serif;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #bbb;
+}
+
+/* ══════════════════════════════════════════════════════
+   PROJECT PAGE
+══════════════════════════════════════════════════════ */
+
+.project-page {
+  background: #fff;
+  overflow-x: hidden;
+}
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 44px;
+  overflow: hidden;
+}
+
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-title {
+  font-family: "Inter V", Arial, sans-serif;
+  font-size: clamp(2.4rem, 7vw, 7rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: yellow;
+  -webkit-text-stroke: 3px #111;
+  paint-order: stroke fill;
+  margin-bottom: 28px;
+}
+
+/* ── YELLOW BANNER ── */
+.yellow-banner {
+  background: yellow;
+  padding: 32px 24px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.yellow-banner h2 {
+  font-family: "Inter V", Arial, sans-serif;
+  font-size: 80px;
+  font-weight: 700;
+  color: #111;
+  line-height: 1;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ── DESCRIPTION ── */
+.description-section {
+  display: flex;
+  align-items: stretch;
+}
+
+.description-block-blue {
+  background: blue;
+  padding: 36px 32px;
+  flex: 1;
+  position: relative;
+}
+
+.description-block-yellow {
+  background: yellow;
+  padding: 36px 36px;
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.description-block-yellow p {
+  font-family: "Inter V", Arial, sans-serif;
+  font-size: clamp(6rem, 2.2vw, 2rem);
+  font-weight: 700;
+  color: black;
+  line-height: 1;
+  letter-spacing: 0.1px;
+  text-transform: uppercase;
+  font-style: italic;
+  max-width: 900px;
+}
+
+.solution-text {
+  font-family: "Inter V", Arial, sans-serif;
+  font-size: clamp(2rem, 5vw, 6rem);
+  font-weight: 700;
+  color: #ff2dbb;
+  text-align: center;
+  letter-spacing: 2px;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+/* ── RANT ── */
+.rant-section {
+  padding: 100px 32px;
+  display: flex;
+  align-items: flex-end;
+  gap: 0px;
+  background: #fff;
+}
+
+.rant-block {
+  background: #ff2dbb;
+  padding: 42px 42px;
+  border: 0 solid #111;
+  margin-top: 100px;
+  margin-bottom: 0px;
+  max-width: 700px;
+}
+
+.rant-block p {
+  font-family: "Inter V", Arial, sans-serif;
+  font-size: clamp(4.85rem, 0vw, 0.4rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: left;
+}
+
+/* ── DESERVED ── */
+.deserved-section {
+  padding: 40px 32px 0;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  background: #fff;
+}
+
+.deserved-box {
+  background: blue;
+  padding: 28px 36px;
+  border: 0 solid #111;
+  max-width: 860px;
+}
+
+.deserved-box p {
+  font-family: "Inter V", Arial, sans-serif;
+  font-size: clamp(4.1rem, 2.4vw, 2.2rem);
+  font-weight: 700;
+  color: yellow;
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: 1px;
+}
+
+/* ── YELLOW FILL ── */
+.yellow-fill {
+  background: blue;
+  height: auto;
+  padding: 60px 0;
+  margin-top: 0;
+  border-top: 0 solid #111;
+}
+
+/* ── HERO VIDEO ── */
+.hero-video {
+  position: fixed;
+  bottom: 0px;
+  right: 0;
+  width: clamp(120px, 20vw, 220px);
+  height: auto;
+  z-index: 15;
+  margin: 10px;
+  pointer-events: none;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero-video.is-hero {
+  width: 70vw !important;
+  bottom: auto !important;
+  right: 14vw !important;
+}
+
+/* ── BOOK SCROLL ── */
+.book-scroll-wrapper {
+  background: blue;
+  padding: 60px 0;
+}
+
+#book-scroll {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 24px;
+  padding: 0 60px;
+  cursor: grab;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+#book-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+#book-scroll img {
+  flex-shrink: 0;
+  height: 80vh;
+  width: auto;
+  display: block;
+}
+
+/* ── HERO IMG TITLE ── */
+.hero-img-title {
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+/* ══════════════════════════════════════════════════════
+   MOBILE OVERRIDES  (≤ 600px)
+══════════════════════════════════════════════════════ */
+@media (max-width: 600px) {
+
+  /* ── NAV ── */
+  nav {
+    top: 6px;
+    padding: 4px;
+    gap: 2px;
+  }
+
+  nav a {
+    padding: 8px 14px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+  }
+
+  /* ── INDEX: header / SVG título ── */
+  header {
+    padding: 64px 0 0;
+  }
+
+  /* O SVG tem viewBox="0 0 1800 460".
+     Por defeito renderiza com width=100vw → height = 460*(vw/1800) ≈ 100px em 390px.
+     Forçamos uma altura mínima para o SVG escalar e o texto ficar grande. */
+  .title-svg {
+    width: 100vw;
+    height: 55vw; /* proporcional ao viewBox: 460/1800 ≈ 25.5% mas queremos 2x maior */
+    min-height: 200px;
+  }
+
+  /* vídeo canto — mais pequeno */
+  video.header-img {
+    width: clamp(70px, 20vw, 110px);
+    margin: 6px;
+  }
+
+  /* ── INDEX: form — mais compacto em mobile ── */
+  .form-wrap {
+    border-radius: 999px;
+    padding: 8px 8px 8px 18px;
+    margin-bottom: 16px;
+    margin-left: 12px;
+    margin-right: 12px;
+    width: calc(100% - 24px);
+    /* altura mínima reduzida */
+    min-height: unset;
+  }
+
+  textarea {
+    font-size: 16px; /* obrigatório — evita zoom automático iOS */
+    height: 20px;
+  }
+
+  .launch-btn {
+    padding: 10px 14px;
+    font-size: 0.7rem;
+    min-height: 38px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── INDEX: bubbles ── */
+  #bubble-layer {
+    top: 55%;
+  }
+
+  .bubble-inner {
+    max-width: 175px;
+    padding: 10px 16px;
+  }
+
+  .bubble-text {
+    font-size: 0.78rem;
+  }
+
+  /* ══ PROJECT PAGE ══ */
+
+  /* ── Yellow banner SVG ──
+     O SVG tem viewBox="0 0 1800 280" e font-size="90px".
+     Em 390px de largura: 90 * (390/1800) ≈ 19.5px — demasiado pequeno.
+     Aumentamos a altura do SVG para deixar o texto respirar
+     e fazemos-o escalar verticalmente para ser legível. */
+  .yellow-banner {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .yellow-banner .title-svg {
+    width: 100vw;
+    /* Aumenta a escala vertical para o texto ficar legível */
+    transform: scaleY(1.8);
+    transform-origin: center center;
+    /* Adiciona altura visual para compensar o scale */
+    margin: 40px 0;
+  }
+
+  /* ── Description: empilha verticalmente ── */
+  .description-section {
+    flex-direction: column;
+  }
+
+  .description-block-blue,
+  .description-block-yellow {
+    width: 100%;
+    padding: 28px 20px;
+  }
+
+  .description-block-yellow {
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .description-block-yellow p {
+    font-size: clamp(1.3rem, 4.5vw, 1.8rem);
+    max-width: 100%;
+  }
+
+  /* ── Rant ── */
+  .rant-section {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 40px 0 40px;
+  }
+
+  .rant-block {
+    margin-top: 0;
+    max-width: 100%;
+    padding: 28px 24px;
+    width: 100%;
+  }
+
+  .rant-block p {
+    font-size: clamp(1.3rem, 4.5vw, 2rem);
+    line-height: 1.05;
+  }
+
+  /* ── Deserved ── */
+  .deserved-section {
+    padding: 0;
+    justify-content: flex-start;
+  }
+
+  .deserved-box {
+    max-width: 100%;
+    width: 100%;
+    padding: 28px 24px;
+  }
+
+  .deserved-box p {
+    font-size: clamp(1.4rem, 5vw, 2rem);
+  }
+
+  /* ── Hero images ── */
+  .hero-img-title {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 0 12px;
+    max-width: 100%;
+  }
+
+  /* ── Hero vídeo (project) ── */
+  .hero-video.is-hero {
+    width: 90vw !important;
+    right: 5vw !important;
+  }
+
+  /* ══ BOOK SCROLL — VERTICAL EM MOBILE ══
+     No desktop: scroll horizontal com drag.
+     No mobile: empilha as páginas verticalmente, scroll normal da página. */
+  .yellow-fill[style*="padding"] {
+    padding: 40px 0 !important;
+  }
+
+  #book-scroll {
+    flex-direction: column;
+    overflow-x: visible;
+    overflow-y: visible;
+    padding: 0 16px;
+    gap: 16px;
+    cursor: default;
+    /* remove o scroll horizontal — a página faz scroll vertical */
+    height: auto;
+  }
+
+  #book-scroll img {
+    height: auto;        /* altura automática, não 80vh */
+    width: 100%;         /* cada página ocupa a largura toda */
+    max-width: 100%;
+    object-fit: contain;
+  }
+
+  /* ── misc ── */
+  .yellow-fill {
+    padding: 36px 0;
+  }
+
+  .help-pill,
+  .corner-3d {
+    display: none;
+  }
+}
+
+/* ── MEDIUM TABLETS (601px – 900px) ── */
+@media (min-width: 601px) and (max-width: 900px) {
+
+  .description-section {
+    flex-direction: column;
+  }
+
+  .description-block-blue,
+  .description-block-yellow {
+    width: 100%;
+    padding: 32px 28px;
+  }
+
+  .description-block-yellow p {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+  }
+
+  .rant-section {
+    flex-direction: column;
+    padding: 60px 28px;
+  }
+
+  .rant-block {
+    margin-top: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .rant-block p {
+    font-size: clamp(2rem, 4.5vw, 3.5rem);
+    line-height: 1;
+  }
+
+  .deserved-section {
+    justify-content: flex-start;
+    padding: 32px 28px 0;
+  }
+
+  .deserved-box {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .deserved-box p {
+    font-size: clamp(2rem, 4vw, 3rem);
+  }
+
+  #book-scroll img {
+    height: 65vh;
+  }
+}
