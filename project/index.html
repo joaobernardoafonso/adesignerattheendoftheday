@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0000ff">
 <title>A Designer at the End of the Day — Project</title>
-<link rel="stylesheet" href="style.css"> 
+<link rel="stylesheet" href="../style.css"> 
 </head>
 <body class="project-page">
 
@@ -20,14 +20,14 @@
 
   <nav>
    <a href="/">VENT HERE</a>
-<a href="/project/" class="active">PROJECT</a>
+   <a href="/project/" class="active">PROJECT</a>
   </nav>
 
   <!-- SECTION 1: Hero -->
   <section class="hero">
     <video id="hero-video" class="hero-video" autoplay loop muted playsinline>
-    <source src="Comp 1_H.265.mp4" type='video/mp4;codecs=hvc1'>
-       <source src="Comp 1_VP9.webm" type="video/webm; codecs=vp9">
+    <source src="../Comp 1_H.265.mp4" type='video/mp4;codecs=hvc1'>
+       <source src="../Comp 1_VP9.webm" type="video/webm; codecs=vp9">
     </video>
   </section>
 
@@ -63,11 +63,11 @@
     </script>
   </section>
 
-  <img src="Artboard 1@3x.png" alt="A Designer at the End of the Day" class="hero-img-title">
+  <img src="../Artboard 1@3x.png" alt="A Designer at the End of the Day" class="hero-img-title">
 
   <section class="description-section">
     <div class="description-block-blue">
-      <img src="Artboard 1 copy@3x.png" alt="A Designer at the End of the Day" class="hero-img-title" style="margin-top:0;margin-bottom:0;">
+      <img src="../Artboard 1 copy@3x.png" alt="A Designer at the End of the Day" class="hero-img-title" style="margin-top:0;margin-bottom:0;">
     </div>
     <div class="description-block-yellow">
       <p>A DESIGNER AT THE END OF THE DAY IS A COMPILATION OF ALL OF THE SORROWS THAT COME WITH BEING A DESIGNER</p>
@@ -88,7 +88,7 @@
     </div>
   </section>
 
-  <img src="BOOK@3x.png" alt="A Designer at the End of the Day" class="hero-img-title">
+  <img src="../BOOK@3x.png" alt="A Designer at the End of the Day" class="hero-img-title">
 
   <!-- SECTION 7: Yellow fill -->
   <div class="yellow-fill"></div>
@@ -114,15 +114,15 @@
   <!-- SECTION 8: Publicação -->
   <div class="yellow-fill" style="height: auto; padding: 60px 0;">
     <div id="book-scroll">
-      <img src="publicacao/PUBLICAÇÃO(1)_page-0001.jpg" alt="">
-      <img src="publicacao/PUBLICAÇÃO(1)_page-0002.jpg" alt="">
-      <img src="publicacao/PUBLICAÇÃO(1)_page-0006.jpg" alt="">
-      <img src="publicacao/PUBLICAÇÃO(1)_page-0010.jpg" alt="">
-      <img src="publicacao/PUBLICAÇÃO(1)_page-0030.jpg" alt="">
-      <img src="publicacao/PUBLICAÇÃO(1)_page-0034.jpg" alt="">
-      <img src="publicacao/PUBLICAÇÃO(1)_page-0039.jpg" alt="">
-      <img src="publicacao/PUBLICAÇÃO(1)_page-0049.jpg" alt="">
-      <img src="publicacao/PUBLICAÇÃO(1)_page-0058.jpg" alt="">
+      <img src="../publicacao/PUBLICAÇÃO(1)_page-0001.jpg" alt="">
+      <img src="../publicacao/PUBLICAÇÃO(1)_page-0002.jpg" alt="">
+      <img src="../publicacao/PUBLICAÇÃO(1)_page-0006.jpg" alt="">
+      <img src="../publicacao/PUBLICAÇÃO(1)_page-0010.jpg" alt="">
+      <img src="../publicacao/PUBLICAÇÃO(1)_page-0030.jpg" alt="">
+      <img src="../publicacao/PUBLICAÇÃO(1)_page-0034.jpg" alt="">
+      <img src="../publicacao/PUBLICAÇÃO(1)_page-0039.jpg" alt="">
+      <img src="../publicacao/PUBLICAÇÃO(1)_page-0049.jpg" alt="">
+      <img src="../publicacao/PUBLICAÇÃO(1)_page-0058.jpg" alt="">
     </div>
   </div>
 
@@ -132,7 +132,6 @@
   let currentScroll = 0;
   let animating = false;
 
-  // Em mobile (touch) o scroll é vertical e nativo — não ativamos o JS de drag
   const isMobile = window.matchMedia('(max-width: 600px)').matches;
 
   function lerp(a, b, t) {
@@ -163,7 +162,6 @@
   }
 
   if (!isMobile) {
-    // ── Wheel (desktop only) ──
     slider.addEventListener('wheel', e => {
       e.preventDefault();
 
@@ -185,7 +183,6 @@
       startAnim();
     }, { passive: false });
 
-    // ── Drag rato (desktop only) ──
     let isDown = false, dragStartX, dragScrollStart;
 
     slider.addEventListener('mousedown', e => {
@@ -206,7 +203,6 @@
     });
   }
 
-  // ── Touch horizontal (tablet/desktop touch, não mobile) ──
   if (!isMobile) {
     let startX, startY, touchScrollStart, isHorizontal = null;
 
