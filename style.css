@@ -523,7 +523,6 @@ footer {
 }
 
 .hero-video.is-hero {
-  /* imagem vertical — usa altura em vez de largura para não sair do ecrã */
   width: auto !important;
   height: 75vh !important;
   bottom: auto !important;
@@ -531,7 +530,7 @@ footer {
   right: 55% !important;
   left: auto !important;
   transform-origin: center center;
-  margin-right: calc(-75vh * 0.45) !important; /* metade da largura aprox para centrar */
+  margin-right: calc(-75vh * 0.45) !important;
 }
 
 @keyframes spin-cover {
@@ -605,12 +604,10 @@ footer {
 
 /* ── Sem cursor em touch ── */
 @media (hover: none) and (pointer: coarse) {
-  /* esconde o glow — o fundo azul vem do body no mobile */
   .cursor-glow {
     display: none;
   }
 
-  /* spreads — cursor personalizado escondido em touch */
   .spreads-viewport { cursor: auto; }
   .spreads-zone     { display: none; }
   .spreads-cursor   { display: none; }
@@ -621,15 +618,7 @@ footer {
 ══════════ */
 @media (max-width: 600px) {
 
-  /* ── Fundo azul SÓ na página Vent Here em mobile ── */
-  body:not(.project-page) {
-    background: blue;
-  }
 
-  /* nav-gradient não necessário — fundo já é azul */
-  body:not(.project-page) .nav-gradient {
-    display: none;
-  }
 
   /* ── NAV ── */
   nav {
@@ -645,20 +634,8 @@ footer {
     letter-spacing: 1px;
   }
 
-  /* ── INDEX: título SVG — fill branco sobre fundo azul ── */
-  body:not(.project-page) .title-text {
-    fill: white;
-    stroke: blue;
-    stroke-width: 18px;
-  }
 
-  /* ── INDEX: bubbles mais visíveis no fundo azul ── */
-  body:not(.project-page) .bubble-inner {
-    border-color: rgba(255, 255, 255, 0.35);
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.18);
-  }
 
-  /* ── INDEX: header / SVG título ── */
   header {
     padding: 60px 0 0;
   }
@@ -669,7 +646,6 @@ footer {
     min-height: 180px;
   }
 
-  /* ── INDEX: form ── */
   .form-wrap {
     border-radius: 4px;
     padding: 10px 10px 10px 16px;
@@ -680,7 +656,7 @@ footer {
   }
 
   textarea {
-    font-size: 16px; /* evita zoom no iOS */
+    font-size: 16px;
     height: 22px;
   }
 
@@ -691,7 +667,6 @@ footer {
     border-radius: 3px;
   }
 
-  /* ── INDEX: bubbles ── */
   #bubble-layer {
     top: 50%;
   }
@@ -710,20 +685,26 @@ footer {
     font-size: 0.55rem;
   }
 
-  /* ── hero-video no canto — mais pequeno em mobile ── */
   .hero-video {
-    width: clamp(55px, 14vw, 90px) !important;
+    width: clamp(40px, 10vw, 65px) !important;
     bottom: 8px !important;
     right: 8px !important;
+    left: auto !important;
     margin: 0 !important;
   }
 
+  /* Em mobile: capa mais pequena e centrada horizontalmente */
+  /* position:fixed centra-se com left:50% + margem negativa de metade da largura */
+  /* width: 55vw → margin-left: -27.5vw */
   .hero-video.is-hero {
-    width: auto !important;
-    height: 55vh !important;
+    width: 55vw !important;
+    height: auto !important;
     top: 14vh !important;
-    right: 50% !important;
-    margin-right: calc(-55vh * 0.45) !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    margin-left: -27.5vw !important;
+    margin-right: 0 !important;
   }
 
   /* ── PROJECT: yellow banner ── */
@@ -739,13 +720,11 @@ footer {
     margin: 32px 0;
   }
 
-  /* ── PROJECT: hero section ── */
   .hero {
     min-height: 50vh;
     padding-top: 56px;
   }
 
-  /* ── PROJECT: description ── */
   .description-section {
     flex-direction: column;
   }
@@ -766,7 +745,6 @@ footer {
     max-width: 100%;
   }
 
-  /* ── PROJECT: split imgs ── */
   .split-img-section {
     gap: 0;
   }
@@ -777,7 +755,6 @@ footer {
     align-self: center !important;
   }
 
-  /* ── PROJECT: hero images ── */
   .hero-img-title {
     margin-top: 32px;
     margin-bottom: 32px;
@@ -785,40 +762,54 @@ footer {
     max-width: 100%;
   }
 
-  /* ── PROJECT: yellow fill ── */
   .yellow-fill {
     padding: 32px 0;
   }
 
-  /* ── PROJECT: spreads — scroll vertical em mobile ── */
+  /* ── SPREADS mobile: scroll horizontal nativo, tamanho sensato ── */
   .spreads-section {
     padding: 24px 0;
+    overflow: hidden;
   }
 
-  /* desactiva scroll horizontal e qualquer lógica de drag */
-  .spreads-viewport,
-  .spreads-track {
-    overflow: visible !important;
+  .spreads-viewport {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
     cursor: auto !important;
-    display: block !important;
-    padding: 0 16px !important;
-    gap: 0 !important;
-    scroll-snap-type: none !important;
   }
 
-  /* cada spread ocupa a largura total, empilhado verticalmente */
-  .spreads-track img,
-  .spreads-track > * {
+  .spreads-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* spreads: layout vertical em mobile */
+  .spreads-viewport {
+    overflow-x: hidden !important;
+    overflow-y: visible !important;
+  }
+
+  .spreads-track {
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    gap: 12px !important;
+    padding: 0 16px !important;
+    transform: none !important;
+  }
+
+  /* cada imagem: largura total, altura automática */
+  .spreads-track img {
     display: block !important;
     width: 100% !important;
     height: auto !important;
     max-width: 100% !important;
-    margin: 0 0 16px 0 !important;
-    scroll-snap-align: none !important;
-    flex-shrink: unset !important;
+    margin: 0 !important;
+    flex-shrink: 0 !important;
   }
 
-  /* misc */
   .help-pill,
   .corner-3d { display: none; }
 }
@@ -828,18 +819,15 @@ footer {
 ══════════ */
 @media (min-width: 601px) and (max-width: 900px) {
 
-  /* ── NAV ── */
   nav a {
     padding: 9px 20px;
     font-size: 12px;
   }
 
-  /* ── INDEX: form ── */
   .form-wrap {
     max-width: 90vw;
   }
 
-  /* ── PROJECT: description ── */
   .description-section {
     flex-direction: column;
   }
@@ -854,24 +842,51 @@ footer {
     font-size: clamp(1.4rem, 3.5vw, 2.2rem);
   }
 
-  /* ── PROJECT: split imgs ── */
   .split-img {
     width: 60%;
     margin-top: 80px;
   }
 
-  /* ── PROJECT: hero images ── */
   .hero-img-title {
     margin-top: 80px;
     margin-bottom: 80px;
   }
 
-  /* ── PROJECT: spreads ── */
-  .spreads-track img {
-    height: 70vh;
+  /* ── SPREADS tablet: scroll horizontal, altura ajustada ── */
+  .spreads-section {
+    overflow: hidden;
   }
 
-  /* ── hero-video ── */
+  .spreads-viewport {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    cursor: auto !important;
+  }
+
+  .spreads-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .spreads-track {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    width: max-content !important;
+    gap: 16px !important;
+    padding: 0 24px !important;
+    transform: none !important;
+  }
+
+  /* altura sensata para tablet: imagens vistas a ~75% do viewport height */
+  .spreads-track img {
+    height: 55vh !important;
+    width: auto !important;
+    max-width: none !important;
+    flex-shrink: 0 !important;
+  }
+
   .hero-video {
     width: clamp(80px, 14vw, 140px) !important;
   }
