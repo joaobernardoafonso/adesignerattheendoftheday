@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0000ff">
 <title>A Designer at the End of the Day — Vent Here</title>
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="cursor-glow" id="cursorGlow"></div>
@@ -32,7 +32,7 @@
 var svg = document.getElementById('main-title-svg');
 function adaptSVG() {
 if (window.innerWidth <= 600) {
-          svg.setAttribute('viewBox', '400 150 1000 280');
+        svg.setAttribute('viewBox', '445 150 1000 280');
         } else {
           svg.setAttribute('viewBox', '0 0 1800 460');
         }
@@ -63,7 +63,7 @@ if (window.innerWidth <= 600) {
 <div id="synopsis-modal" onclick="closeSynopsis()">
   <div id="synopsis-inner">
     <button id="synopsis-close" onclick="closeSynopsis(); event.stopPropagation();">✕</button>
-    <p id="synopsis-body"><I>A DESIGNER AT THE END OF THE DAY</I> &nbsp; looks at the reality of design practice: not the polished version that appears in portfolios and case studies, but the daily experience of doing the work. It begins from a simple observation: that there is a significant gap between how design is presented and how it is actually lived, and that this gap is rarely acknowledged in professional discourse. The project takes the form of a print and digital publication, honest and occasionally funny, that treats the unglamorous parts of the profession as worthy of serious attention. Alongside it, a website extends the project into a shared space where designers can contribute their own experiences, anonymously or openly, turning a fixed editorial statement into something ongoing and collective. Together, they argue that the ordinary reality of creative practice deserves to be named, not despite its ordinariness but because of it.</p>
+    <p id="synopsis-body"><I>A DESIGNER AT THE END OF THE DAY</I> looks at the reality of design practice: not the polished version that appears in portfolios and case studies, but the daily experience of doing the work. It begins from a simple observation: that there is a significant gap between how design is presented and how it is actually lived, and that this gap is rarely acknowledged in professional discourse. The project takes the form of a print and digital publication, honest and occasionally funny, that treats the unglamorous parts of the profession as worthy of serious attention. Alongside it, a website extends the project into a shared space where designers can contribute their own experiences, anonymously or openly, turning a fixed editorial statement into something ongoing and collective. Together, they argue that the ordinary reality of creative practice deserves to be named, not despite its ordinariness but because of it.</p>
   </div>
 </div>
 
@@ -122,7 +122,7 @@ if (window.innerWidth <= 600) {
       z-index: 601;
     }
     #synopsis-close:hover { opacity: 0.6; }
- 
+
     @media (max-width: 600px) {
       #synopsis-modal {
         padding: 0;
@@ -140,45 +140,71 @@ if (window.innerWidth <= 600) {
         line-height: 1.25;
         transform: none;
         width: 100%;
-        text-align: left;
-        font-weight: 700;
       }
-      #synopsis-close { top: 16px; right: 16px; font-size: 22px; }
+      #synopsis-close { top: 16px; right: 16px; font-size: 20px; }
     }
- 
+
     @media (min-width: 601px) and (max-width: 900px) {
       #synopsis-modal { padding: 60px 28px 28px; }
       #synopsis-inner { width: 92vw; }
       #synopsis-body { font-size: clamp(18px, 2.8vw, 34px); }
       #synopsis-close { top: 20px; right: 20px; }
     }
- 
-    /* ── Tablet ── */
-    @media (min-width: 601px) and (max-width: 900px) {
-      #synopsis-modal {
-        padding: 20px;
-        padding-top: 80px;
-        align-items: flex-start;
-      }
-      #synopsis-inner {
-        padding: 0;
-        width: 100%;
-        max-width: 100%;
-        align-items: flex-start;
-      }
-      #synopsis-body {
-        font-size: clamp(22px, 4vw, 40px);
-        line-height: 1.1;
-        transform: scaleX(0.49);
-        transform-origin: left center;
-        width: 204%;
-        text-align: left;
-      }
-      #synopsis-close {
-        top: 20px;
-        right: 20px;
-      }
+
+  /* ── Mobile ── */
+  @media (max-width: 600px) {
+    #synopsis-modal {
+      padding: 16px;
+      align-items: flex-start;
+      padding-top: 72px;
     }
+    #synopsis-inner {
+      padding: 0;
+      width: 100%;
+      max-width: 100%;
+      align-items: flex-start;
+    }
+    #synopsis-body {
+      font-size: clamp(18px, 5.5vw, 28px);
+      line-height: 1.2;
+      transform: none;
+      width: 100%;
+      text-align: left;
+      font-weight: 700;
+    }
+    #synopsis-close {
+      top: 16px;
+      right: 16px;
+      font-size: 22px;
+    }
+  }
+
+  /* ── Tablet ── */
+  @media (min-width: 601px) and (max-width: 900px) {
+    #synopsis-modal {
+      padding: 20px;
+      padding-top: 80px;
+      align-items: flex-start;
+    }
+    #synopsis-inner {
+      padding: 0;
+      width: 100%;
+      max-width: 100%;
+      align-items: flex-start;
+    }
+    #synopsis-body {
+      font-size: clamp(22px, 4vw, 40px);
+      line-height: 1.1;
+      transform: scaleX(0.49);
+      transform-origin: left center;
+      width: 204%;
+      text-align: left;
+    }
+    #synopsis-close {
+      top: 20px;
+      right: 20px;
+    }
+  }
 
   #float-about {
     position: fixed;
