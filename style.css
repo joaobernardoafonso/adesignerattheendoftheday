@@ -697,13 +697,13 @@ footer {
   /* position:fixed centra-se com left:50% + margem negativa de metade da largura */
   /* width: 55vw → margin-left: -27.5vw */
   .hero-video.is-hero {
-    width: 55vw !important;
+    width: 50vw !important;
     height: auto !important;
-    top: 14vh !important;
-    left: 50% !important;
+    top: 8vh !important;
+    left: 45% !important;
     right: auto !important;
     bottom: auto !important;
-    margin-left: -27.5vw !important;
+    margin-left: -20vw !important;
     margin-right: 0 !important;
   }
 
