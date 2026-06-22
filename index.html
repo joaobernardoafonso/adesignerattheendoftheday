@@ -32,7 +32,7 @@
 var svg = document.getElementById('main-title-svg');
 function adaptSVG() {
 if (window.innerWidth <= 600) {
-        svg.setAttribute('viewBox', '445 150 1000 280');
+          svg.setAttribute('viewBox', '445 150 1000 280');
         } else {
           svg.setAttribute('viewBox', '0 0 1800 460');
         }
@@ -68,7 +68,7 @@ if (window.innerWidth <= 600) {
 </div>
 
 <style>
-      #synopsis-modal {
+           #synopsis-modal {
       position: fixed;
       inset: 0;
       z-index: 600;
@@ -140,71 +140,23 @@ if (window.innerWidth <= 600) {
         line-height: 1.25;
         transform: none;
         width: 100%;
+        text-align: left;
+        font-weight: 700;
       }
-      #synopsis-close { top: 16px; right: 16px; font-size: 20px; }
+      #synopsis-close { top: 16px; right: 16px; font-size: 22px; }
     }
 
     @media (min-width: 601px) and (max-width: 900px) {
-      #synopsis-modal { padding: 60px 28px 28px; }
-      #synopsis-inner { width: 92vw; }
-      #synopsis-body { font-size: clamp(18px, 2.8vw, 34px); }
+      #synopsis-modal { padding: 60px 28px 28px; align-items: flex-start; }
+      #synopsis-inner { width: 92vw; overflow: hidden; }
+      #synopsis-body {
+        font-size: clamp(18px, 2.8vw, 34px);
+        transform: scaleX(0.49);
+        transform-origin: left center;
+        width: 204%;
+      }
       #synopsis-close { top: 20px; right: 20px; }
     }
-
-  /* ── Mobile ── */
-  @media (max-width: 600px) {
-    #synopsis-modal {
-      padding: 16px;
-      align-items: flex-start;
-      padding-top: 72px;
-    }
-    #synopsis-inner {
-      padding: 0;
-      width: 100%;
-      max-width: 100%;
-      align-items: flex-start;
-    }
-    #synopsis-body {
-      font-size: clamp(18px, 5.5vw, 28px);
-      line-height: 1.2;
-      transform: none;
-      width: 100%;
-      text-align: left;
-      font-weight: 700;
-    }
-    #synopsis-close {
-      top: 16px;
-      right: 16px;
-      font-size: 22px;
-    }
-  }
-
-  /* ── Tablet ── */
-  @media (min-width: 601px) and (max-width: 900px) {
-    #synopsis-modal {
-      padding: 20px;
-      padding-top: 80px;
-      align-items: flex-start;
-    }
-    #synopsis-inner {
-      padding: 0;
-      width: 100%;
-      max-width: 100%;
-      align-items: flex-start;
-    }
-    #synopsis-body {
-      font-size: clamp(22px, 4vw, 40px);
-      line-height: 1.1;
-      transform: scaleX(0.49);
-      transform-origin: left center;
-      width: 204%;
-      text-align: left;
-    }
-    #synopsis-close {
-      top: 20px;
-      right: 20px;
-    }
-  }
 
   #float-about {
     position: fixed;
