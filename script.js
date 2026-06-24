@@ -19,8 +19,8 @@ const db  = getFirestore(app);
 // ── BUBBLE ────────────────────────────────────────────────────────────────────
 const bubbleLayer = document.getElementById('bubble-layer');
 
-// FIX: cap at 40 bubbles — remove oldest when limit exceeded
-const MAX_BUBBLES = 40;
+// Increased limit from 40 to 100
+const MAX_BUBBLES = 200;
 
 function escHtml(s) {
   return s
@@ -37,11 +37,73 @@ function timeStr(date) {
   return `${day} · ${time}`;
 }
 
+function makeDraggable(bubble) {
+  const inner = bubble.querySelector('.bubble-inner');
+  let isDragging = false;
+  let startX, startY, origX, origY;
+
+  function getPos() {
+    const style = window.getComputedStyle(bubble);
+    return {
+      x: parseFloat(style.left) || 0,
+      y: parseFloat(style.top)  || 0
+    };
+  }
+
+  // Mouse
+  inner.addEventListener('mousedown', e => {
+    isDragging = true;
+    const pos = getPos();
+    origX = pos.x; origY = pos.y;
+    startX = e.clientX; startY = e.clientY;
+    bubble.style.animationPlayState = 'paused';
+    bubble.style.cursor = 'grabbing';
+    bubble.style.zIndex = '9000';
+    e.stopPropagation();
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    bubble.style.left = (origX + e.clientX - startX) + 'px';
+    bubble.style.top  = (origY + e.clientY - startY) + 'px';
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    bubble.style.cursor = 'grab';
+    bubble.style.zIndex = '';
+  });
+
+  // Touch
+  inner.addEventListener('touchstart', e => {
+    const pos = getPos();
+    origX = pos.x; origY = pos.y;
+    startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+    isDragging = true;
+    bubble.style.animationPlayState = 'paused';
+    bubble.style.zIndex = '9000';
+    e.stopPropagation();
+  }, { passive: true });
+
+  inner.addEventListener('touchmove', e => {
+    if (!isDragging) return;
+    bubble.style.left = (origX + e.touches[0].clientX - startX) + 'px';
+    bubble.style.top  = (origY + e.touches[0].clientY - startY) + 'px';
+  }, { passive: true });
+
+  inner.addEventListener('touchend', () => {
+    isDragging = false;
+    bubble.style.zIndex = '';
+  });
+
+  inner.style.cursor = 'grab';
+}
+
 function createBubble(text, date) {
   const vw = window.innerWidth;
 
-  // FIX: use full document height instead of innerHeight so bubbles spread
-  // across the whole page rather than collapsing when the soft keyboard is open
   const pageH = Math.max(
     document.body.scrollHeight,
     document.documentElement.scrollHeight,
@@ -58,7 +120,7 @@ function createBubble(text, date) {
   const r1     = r0 + (Math.random() - 0.5) * 6;
   const dur    = 16 + Math.random() * 20;
 
-  // FIX: remove oldest bubble if at the cap
+  // Remove oldest bubble if at the cap
   const existing = bubbleLayer.querySelectorAll('.bubble');
   if (existing.length >= MAX_BUBBLES) {
     existing[existing.length - 1].remove();
@@ -84,14 +146,18 @@ function createBubble(text, date) {
   `;
 
   bubbleLayer.appendChild(bubble);
+
+  // Make it draggable
+  makeDraggable(bubble);
+  bubble.setAttribute('data-draggable', '1');
 }
 
 // ── ESCUTA MENSAGENS EM TEMPO REAL ────────────────────────────────────────────
-// FIX: added limit(50) to cap initial load — prevents slowdown as entries grow
+// Increased limit from 50 to 100
 const q = query(
   collection(db, 'feelings'),
   orderBy('createdAt', 'desc'),
-  limit(50)
+  limit(200)
 );
 
 onSnapshot(q, (snapshot) => {
@@ -102,6 +168,12 @@ onSnapshot(q, (snapshot) => {
       const delay = Math.random() * 1200;
       setTimeout(() => createBubble(data.text, date), delay);
     }
+  });
+
+  // After each snapshot batch, apply drag to any bubble not yet draggable
+  bubbleLayer.querySelectorAll('.bubble:not([data-draggable])').forEach(b => {
+    makeDraggable(b);
+    b.setAttribute('data-draggable', '1');
   });
 });
 
@@ -124,7 +196,6 @@ async function launch() {
   });
 
   msgEl.value = '';
-  // FIX: reset textarea height after clearing
   msgEl.style.height = 'auto';
   msgEl.style.borderBottomColor = '#aaa';
   setTimeout(() => { msgEl.style.borderBottomColor = ''; }, 500);
@@ -142,7 +213,6 @@ document.getElementById('msg-input').addEventListener('keydown', e => {
 // ── CURSOR GLOW ───────────────────────────────────────────────────────────────
 const glow = document.getElementById('cursorGlow');
 
-// Em touch (mobile/tablet) não há cursor — o glow fica estático via CSS
 const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
 if (!isTouch && glow) {
@@ -166,4 +236,3 @@ if (!isTouch && glow) {
   }
   loop();
 }
-// Em touch: o CSS posiciona o glow estático no topo via media query
